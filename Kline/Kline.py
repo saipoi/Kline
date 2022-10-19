@@ -4,15 +4,15 @@ from pyecharts.charts import Kline, Bar, Grid, Line
 from pyecharts.commons.utils import JsCode
 from tushare import get_hist_data
 
-data=ts.get_hist_data("600848")
+data=ts.get_hist_data("000016")
 print(data.head())
 print(data.index)
-print(data.sort_index().index)
+print(data.sort_index())
 print(type(data.index))
 def plot_kline(data):
     kline = (
         Kline(init_opts=opts.InitOpts(width="1800px",height="1000px")) # 设置画布大小
-        .add_xaxis(xaxis_data=list(data.sort_index().index)) # 将原始数据的index排序并转化为list作为横坐标
+        .add_xaxis(xaxis_data=list(data.index)) # 将原始数据的index排序并转化为list作为横坐标
         .add_yaxis(series_name="klines",y_axis=data[["open","close","low","high"]].values.tolist(), # 纵坐标采用OPEN、CLOSE、LOW、HIGH，注意顺序
         itemstyle_opts=opts.ItemStyleOpts(color="#ec0000", color0="#00da3c"),)
         .set_global_opts(legend_opts=opts.LegendOpts(is_show=True, pos_bottom=10, pos_left="center"),
@@ -349,7 +349,8 @@ def plot_kline_volume_signal(data):
 
 def ShowInfo():
     stockcode = input()
-    data = get_hist_data(stockcode)
+    data = get_hist_data(stockcode).sort_index() #将数据按照时间排序
+    plot_kline(data)
     plot_kline_volume_signal(data)
 
 
