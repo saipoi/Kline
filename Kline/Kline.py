@@ -4,11 +4,13 @@ from pyecharts.charts import Kline, Bar, Grid, Line
 from pyecharts.commons.utils import JsCode
 from tushare import get_hist_data
 
-data=ts.get_hist_data("000016")
-print(data.head())
-print(data.index)
-print(data.sort_index())
-print(type(data.index))
+#测试用
+# data=ts.get_hist_data("000016")
+# print(data.head())
+# print(data.index)
+# print(data.sort_index())
+# print(type(data.index))
+
 def plot_kline(data):
     kline = (
         Kline(init_opts=opts.InitOpts(width="1800px",height="1000px")) # 设置画布大小
