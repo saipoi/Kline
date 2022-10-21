@@ -11,7 +11,6 @@ pro = ts.pro_api('f558cbc6b24ed78c2104e209a8a8986b33ec66b7c55bcfa2f46bc108')
 engine = create_engine('mysql+pymysql://root:qwer12345@23.94.43.9:3306/stock?charset=utf8')
 
 
-
 def getname():
     # 拉取数据
     df = pro.stock_basic(**{
@@ -39,10 +38,10 @@ def createtable():
 
 def insertinfo():
     con = engine.connect()
-    db = database_connection.MySQLDb()
     df = getname()
-    df.to_sql(name='stockname', con=con, if_exists='append')
+    df.to_sql(name='stockname', con=con, if_exists='fail')
     con.close()
 
 
-insertinfo()
+def getname(symbol):
+    con = engine.connect()

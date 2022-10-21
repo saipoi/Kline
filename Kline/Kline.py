@@ -206,7 +206,7 @@ def plot_kline_volume_signal(data):
         Kline(init_opts=opts.InitOpts(width="1800px",height="1000px"))
         .add_xaxis(xaxis_data=list(data.index))
         .add_yaxis(
-            series_name="klines",
+            series_name="k线",
             y_axis=data[["open","close","low","high"]].values.tolist(),
             itemstyle_opts=opts.ItemStyleOpts(color="#ec0000", color0="#00da3c"),
         )
