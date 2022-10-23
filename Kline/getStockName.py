@@ -1,7 +1,4 @@
-# 将股票名插入到数据库中
-
-
-# 导入tushare mysql
+# 将股票名保存到数据库中
 import MySQLdb
 import tushare as ts
 import database_connection
@@ -21,11 +18,11 @@ conn = MySQLdb.connect(
     database='stock'
 )
 
-db = database_connection.MySQLDb()
+#db = database_connection.MySQLDb()
 
 
-def getname():
-    # 拉取数据
+def pullname():
+    # 拉取股票数据
     df = pro.stock_basic(**{
         "ts_code": "",
         "name": "",
@@ -43,20 +40,22 @@ def getname():
 
 
 def createtable():
-    db = database_connection.MySQLDb()
+    cursor = conn.cursor()
     sql = "CREATE TABLE `stockname` ( 'index' varchar(10) , `symbol` varchar(10) COMMENT '股票代码', `name` varchar(10) COMMENT '日期', " \
           "PRIMARY KEY (`symbol`) ) ENGINE = InnoDB DEFAULT CHARSET=utf8; "
-    db.commit_data(sql)
+    cursor.execute(sql)
 
 
 def insertinfo():
-    con = engine.connect()
-    df = getname()
+    #数据插入表中
+    con = engine.connect() #使用sqlalchemy的engine类型
+    df = pullname()
     df.to_sql(name='stockname', con=con, if_exists='fail')
     con.close()
 
 
 def getname(id):
+    #从表中获取姓名
     cursor = conn.cursor()
     sql = 'select name from stockname where symbol = %s;' % id
     cursor.execute(sql)

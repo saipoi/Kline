@@ -1,3 +1,4 @@
+#生成K线图并保存为html
 import tushare as ts
 from pyecharts import options as opts
 from pyecharts.charts import Kline, Bar, Grid, Line
@@ -170,12 +171,10 @@ def plot_kline_volume_signal(data, name):
     grid_chart.render("kline_volume_signal.html")
 
 
-def ShowInfo():
+def generate_html():
     stockcode = input()
     data = ts.get_hist_data(stockcode).sort_index()  # 将数据按照时间排序
     name = getname(stockcode)
     plot_kline_volume_signal(data, name)
 
 
-if __name__ == "__main__":
-    ShowInfo()

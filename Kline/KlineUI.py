@@ -1,3 +1,4 @@
+# 将html通过QtWebEngine展示
 import os
 import sys
 import Kline
@@ -19,9 +20,12 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.browser)
 
 
-if __name__ == '__main__':
-    Kline.ShowInfo()
+def show_kline():
+    Kline.generate_html()
     app = QApplication(sys.argv)
     win = MainWindow()
     win.show()
     app.exit(app.exec_())
+
+
+show_kline()
