@@ -1,11 +1,11 @@
 # 将html通过QtWebEngine展示
 import os
 import sys
-import Kline
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtWebEngineWidgets import *
+from Kline import generate_html
 
 
 class MainWindow(QMainWindow):
@@ -21,7 +21,7 @@ class MainWindow(QMainWindow):
 
 
 def show_kline():
-    Kline.generate_html()
+    generate_html()
     app = QApplication(sys.argv)
     win = MainWindow()
     win.show()

@@ -3,7 +3,7 @@ import tushare as ts
 from pyecharts import options as opts
 from pyecharts.charts import Kline, Bar, Grid, Line
 from pyecharts.commons.utils import JsCode
-from getStockName import getname
+from getStockName import get_name
 import demjson
 from tushare import get_hist_data
 
@@ -174,7 +174,7 @@ def plot_kline_volume_signal(data, name):
 def generate_html():
     stockcode = input()
     data = ts.get_hist_data(stockcode).sort_index()  # 将数据按照时间排序
-    name = getname(stockcode)
+    name = get_name(stockcode)
     plot_kline_volume_signal(data, name)
 
 

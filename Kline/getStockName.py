@@ -1,7 +1,6 @@
 # 将股票名保存到数据库中
 import MySQLdb
 import tushare as ts
-import database_connection
 from sqlalchemy import create_engine, String, Column
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
@@ -18,10 +17,10 @@ conn = MySQLdb.connect(
     database='stock'
 )
 
-#db = database_connection.MySQLDb()
 
 
-def pullname():
+
+def pull_name():
     # 拉取股票数据
     df = pro.stock_basic(**{
         "ts_code": "",
@@ -39,27 +38,26 @@ def pullname():
     return df
 
 
-def createtable():
+def create_table():
     cursor = conn.cursor()
     sql = "CREATE TABLE `stockname` ( 'index' varchar(10) , `symbol` varchar(10) COMMENT '股票代码', `name` varchar(10) COMMENT '日期', " \
           "PRIMARY KEY (`symbol`) ) ENGINE = InnoDB DEFAULT CHARSET=utf8; "
     cursor.execute(sql)
 
 
-def insertinfo():
+def insert_info():
     #数据插入表中
     con = engine.connect() #使用sqlalchemy的engine类型
-    df = pullname()
+    df = pull_name()
     df.to_sql(name='stockname', con=con, if_exists='fail')
     con.close()
 
 
-def getname(id):
+def get_name(id):
     #从表中获取姓名
     cursor = conn.cursor()
     sql = 'select name from stockname where symbol = %s;' % id
     cursor.execute(sql)
-    # 获取所有数据  fetchall()方法，它从最后所执行语句的结果中，获取所有行。
     data = cursor.fetchall()
     return data[0][0]
 
