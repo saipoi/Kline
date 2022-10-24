@@ -3,7 +3,7 @@ import tushare as ts
 from pyecharts import options as opts
 from pyecharts.charts import Kline, Bar, Grid, Line
 from pyecharts.commons.utils import JsCode
-from getStockName import get_name
+from getstockname import get_name
 import demjson
 from tushare import get_hist_data
 
